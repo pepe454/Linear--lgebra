@@ -32,7 +32,7 @@ class Matrix:
             self.det = 1
             self.square = True
             
-        #eigenvectors and eigenvalues
+        #eigenvectors, eigenvalues, and the diagonal matrix
         self.eigenvalues = []
         self.eigenvectors = []
         self.diagonal_matrix = []
@@ -121,12 +121,11 @@ class Matrix:
 
     #return the solution of the system if b is provided
     def solve(self):
-        #need to account for free variables and inconsistent solutions        
         if self.b is not None:
             if not self.RREF:
                 self.gaussianelimination()
                 
-            #check to make sure that zero rows match up with zero bi
+            #make sure the system is consistent
             count = -1
             for k in self.A:
                 count += 1
@@ -137,18 +136,19 @@ class Matrix:
                         break
                 if zero:
                     if self.b[count] != 0:
-                        return "Inconsitent solution!"
-                    
-            if len(self) >= len(self.A[0]):
-                temp = "["
-                for i in self.b: 
-                    temp += str(i) + ", "
-                temp = temp[:-2]
-                temp += "]"
-                return temp
+                        print("Inconsitent solution!")
+                        return None
             
-            #check for inconsitent solution when m > n:
-            if len(self) < len(self.A[0]):
+            #now return the solution if the system is consitent
+            if len(self) >= len(self.A[0]):
+                sol = "["
+                for i in self.b: 
+                    sol += str(i) + ", "
+                sol = sol[:-2]
+                sol += "]"
+                print("The solution is: \n" + sol)
+                return self.b
+            else: 
                 sol = ""
                 first = len(self.A[0]) - len(self.A)
                 for i in range(len(self)):
@@ -159,47 +159,45 @@ class Matrix:
                         if j != len(self.A[0]) - 1:
                             temp += " + "
                     sol += temp + "\n"
-                return "The solution in terms of free variables: \n" + sol
-                 
-    #doesn't return in a satisfying way, but it's something
-    def get_inverse(self):
-        k = self.get_det()
-        if k != 0:
-            for yaga in range(len(self.inv)):
-                g = "["
-                for yeet in range(len(self.inv[0])):
-                    g += str(Fraction(self.inv[yaga][yeet]).limit_denominator())
-                    if yeet < len(self.inv[0]) - 1:
-                        g += ", "
-                g += "]"
-                print(g)
-            return self.inv
-        else:
-            return "Determinant is zero"
+                print("The solution in terms of free variables: \n" + sol)
+                #what should I return in this case?
+                return self.b
     
     #returns the determinant
     def get_det(self):
-        #checking to see if there are any zero rows
-        yaga = False
-        for i in range(len(self)):
-            if self.A[i][0] == 0:
-                count = 0
-                for j in range(1,len(self.A[0])):
-                    count += self.A[i][j]
-                if count == 0:
-                    yaga = True
-                    break
-        #in that case, det is zero. If rows!=cols, det is zero or undefined but yaga?
-        if yaga or len(self) != len(self.A[0]):
-            return 0
-        elif not self.RREF:
-            self.gaussianelimination()
-        ind = 0
-        #if there are any zero rows, determinant is zero
-        for i in range(len(self)):
-            self.det *= self.A[i][ind]
-            ind += 1
-        return self.det
+        if self.square: 
+            if not self.RREF:
+                self.gaussianelimination()
+            ind = 0
+            #multiply along the diagonal
+            for i in range(len(self)):
+                self.det *= self.A[i][ind]
+                ind += 1
+            return self.det
+        print("Matrix is not square")
+        return None
+                 
+    #doesn't return in a satisfying way, but it's something
+    def get_inverse(self):
+        if self.square:
+            k = self.get_det()
+            if k != 0 and k is not None:
+                print("The inverse is: ")
+                for j in range(len(self.inv)):
+                    g = "["
+                    for k in range(len(self.inv[0])):
+                        g += str(Fraction(self.inv[j][k]).limit_denominator())
+                        g += ", "
+                    g = g[:-2]
+                    g += "]"
+                    print(g)
+                return self.inv
+            else: 
+                print("Determinant is zero")
+                return None
+        else:
+            print("Matrix is non square")
+            return None  
     
     #need to check this method
     def __add__(self,other):
@@ -243,17 +241,20 @@ class Matrix:
 
 #n is bigger than m
 m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
-print(m.solve())
-print("----------------\n\n")
+m.get_inverse()
+#print(m.solve())
+print("----------------\n")
 
 #m is bigger than m
 m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
-print(m.solve())
-print("----------------\n\n")
+m.get_inverse()
+#print(m.solve())
+print("----------------\n")
 
 #m = n
 m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
-print(m.solve())
+m.get_inverse()
+#print(m.solve())
 
 
 
