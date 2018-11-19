@@ -35,8 +35,9 @@ class Matrix:
         #eigenvectors and eigenvalues
         self.eigenvalues = []
         self.eigenvectors = []
-        self.diagonal = []
+        self.diagonal_matrix = []
         self.P = []
+        
             
     #matrix operations    
     def swap(self, first, second):
@@ -56,9 +57,9 @@ class Matrix:
     #scale 1 row
     def scale(self, row, c):
         if 0 <= row < len(self.A):
-            self.A[row] = [c*i for i in self.A[row]]
+            self.A[row] = [c*i if i != 0 else 0.0 for i in self.A[row]]
             if self.square:
-                self.inv[row] = [c*i for i in self.inv[row]]        
+                self.inv[row] = [c*i if i != 0 else 0.0 for i in self.inv[row]]        
         #update right side
         if self.b:
             self.b[row] *= c 
@@ -124,29 +125,41 @@ class Matrix:
         if self.b is not None:
             if not self.RREF:
                 self.gaussianelimination()
-            
-            #if it's a square matrix don't worry about free vars or inconsitent?
-            if len(self) == len(self.A[0]):
-                return "The solution is: " + str(self.b)
-            
-            #check for inconsitent solution when n > m:
-            if len(self) > len(self.A[0]):
-                for i in range(len(self.A[0]),len(self.b)):
-                    if self.b[i] != 0:
+                
+            #check to make sure that zero rows match up with zero bi
+            count = -1
+            for k in self.A:
+                count += 1
+                zero = True
+                for j in k:
+                    if j != 0:
+                        zero = False
+                        break
+                if zero:
+                    if self.b[count] != 0:
                         return "Inconsitent solution!"
-                return "The solution is: " + str(self.b)
-            else:
+                    
+            if len(self) >= len(self.A[0]):
+                temp = "["
+                for i in self.b: 
+                    temp += str(i) + ", "
+                temp = temp[:-2]
+                temp += "]"
+                return temp
+            
+            #check for inconsitent solution when m > n:
+            if len(self) < len(self.A[0]):
                 sol = ""
                 first = len(self.A[0]) - len(self.A)
                 for i in range(len(self)):
-                    sol += str(self.b[i])
+                    sol += "x" + str(i) + " = " + str(self.b[i]) + " + " 
                     temp = ""
                     for j in range(first, len(self.A[0])):
-                        temp += str(self.A[i][j]) + "x"
-                        if j == len(self.A[0]) - 1:
+                        temp += "({cons})x{place}".format(place=j,cons=str(Fraction(self.A[i][j]).limit_denominator()))
+                        if j != len(self.A[0]) - 1:
                             temp += " + "
                     sol += temp + "\n"
-                return "The solution is: \n" + sol
+                return "The solution in terms of free variables: \n" + sol
                  
     #doesn't return in a satisfying way, but it's something
     def get_inverse(self):
