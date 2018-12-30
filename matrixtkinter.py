@@ -4,6 +4,7 @@ Matrix Operations GUI
 9/29/18
 @author: 17Fry
 """
+
 from tkinter import *
 import matrix
 
@@ -28,5 +29,4 @@ numcols = Entry(window,width=10)
 numcols.grid(column = 5, row=1)
 
 window.mainloop()
-
 
