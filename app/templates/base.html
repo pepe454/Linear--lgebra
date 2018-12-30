@@ -1,0 +1,14 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }}</title>
+      {% else %}
+      <title>Danny's Linear Algebra Calculator</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Linear Algebra Calculator: <a href="/index">Home</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
