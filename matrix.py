@@ -15,8 +15,8 @@ class Matrix:
         if b is not None:
             if len(b) == len(self.A):
                 self.b = b
-        self.x = None
         self.RREF = False
+        self.transposed = False
         
         #IMT properties
         self.square = False
@@ -177,7 +177,7 @@ class Matrix:
         print("Matrix is not square")
         return None
                  
-    #doesn't return in a satisfying way, but it's something
+    #retruns the determinant
     def get_inverse(self):
         if self.square:
             k = self.get_det()
@@ -197,7 +197,25 @@ class Matrix:
                 return None
         else:
             print("Matrix is non square")
-            return None  
+            return None
+
+    def transpose(self):
+        self.transposed = not self.transposed
+        if self.square:
+            k = len(self)
+            for i in range(k):
+                for j in range(i, k):
+                    self.A[i][j], self.A[j][i] = self.A[j][i], self.A[i][j]
+            print(self)
+        else:
+            transpose = [[0 for j in range(len(self))] for i in range(len(self.A[0]))]
+            for k in range(len(self.A[0])):
+                for j in range(len(self)):
+                    transpose[k][j] = self.A[j][k]
+            self.A = transpose
+            self.RREF = False
+            print(self)               
+        
     
     #need to check this method
     def __add__(self,other):
@@ -225,7 +243,7 @@ class Matrix:
             
     def __str__(self): 
         strng = ""
-        if self.b is None:
+        if self.b is None or self.transposed:
             for y in self:
                 strng += str(y) + "\n"
         else:
@@ -241,22 +259,29 @@ class Matrix:
 
 #n is bigger than m
 m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
-m.get_inverse()
+#m.get_inverse()
 #print(m.solve())
+print(m)
+m.transpose()
+m.transpose()
 print("----------------\n")
 
 #m is bigger than m
 m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
-m.get_inverse()
+#m.get_inverse()
 #print(m.solve())
+print(m)
+m.transpose()
+m.transpose()
 print("----------------\n")
 
 #m = n
 m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
-m.get_inverse()
+#m.get_inverse()
 #print(m.solve())
-
-
+print(m)
+m.transpose()
+m.transpose()
 
 
 
