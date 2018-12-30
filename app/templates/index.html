@@ -1,6 +1,10 @@
 <html>
     <head>
-        <title>{{ title }} - Microblog</title>
+        {% if title %}
+        <title>{{ title }}</title>
+        {% else %}
+        <title>Welcome to Matrix Calculator!</title>
+        {% endif %}
     </head>
     <body>
         <h1>Hello, {{ user.username }}!</h1>

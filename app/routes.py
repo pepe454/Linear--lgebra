@@ -5,4 +5,4 @@ from app import app
 @app.route('/index')
 def index():
     user = {'username':'Danny'}
-    return render_template('index.html', title="What's up Man!", user=user)
+    return render_template('index.html', title="Danny's Matrix Calculator", user=user)
