@@ -1,0 +1,26 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>Danny's Matrix Solver</h1>
+  <ul>
+    <li><a href="{{ url_for('index') }}">Home</a>
+    <li><a href="{{ url_for('ops.inverse') }}">Inverse Matrix</a>
+    <li><a href="{{ url_for('ops.determinant') }}">Determinant</a>
+    <li><a href="{{ url_for('ops.gausselimination') }}">Gaussian Elimination</a>
+    <li><a href="{{ url_for('ops.transpose') }}">Transpose Matrix</a>
+    <li><a href="{{ url_for('ops.eigen') }}">Eigenvalues and Eigenvectors</a>
+    <li><a href="{{ url_for('ops.QR') }}">QR Factorization</a>
+    <li><a href="{{ url_for('ops.orthogonalprojection') }}">Orthogonal Projections</a>
+    <li><a href="{{ url_for('ops.gramschmidt') }}">Gram-Schmidt</a>
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>

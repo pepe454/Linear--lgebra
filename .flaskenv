@@ -1,1 +1,2 @@
 FLASK_APP=matrixflask.py
+FLASK_ENV=development
