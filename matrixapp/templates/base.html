@@ -2,18 +2,17 @@
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>Danny's Matrix Solver</h1>
-  <ul>
-    <li><a href="{{ url_for('index') }}">Home</a>
-    <li><a href="{{ url_for('ops.inverse') }}">Inverse Matrix</a>
-    <li><a href="{{ url_for('ops.determinant') }}">Determinant</a>
-    <li><a href="{{ url_for('ops.gausselimination') }}">Gaussian Elimination</a>
-    <li><a href="{{ url_for('ops.transpose') }}">Transpose Matrix</a>
-    <li><a href="{{ url_for('ops.eigen') }}">Eigenvalues and Eigenvectors</a>
-    <li><a href="{{ url_for('ops.QR') }}">QR Factorization</a>
-    <li><a href="{{ url_for('ops.orthogonalprojection') }}">Orthogonal Projections</a>
-    <li><a href="{{ url_for('ops.gramschmidt') }}">Gram-Schmidt</a>
-  </ul>
+  <div class="trigger">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('operations.inverse') }}">Inverse Matrix</a>
+    <a href="{{ url_for('operations.determinant') }}">Determinant</a>
+    <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>
+    <a href="{{ url_for('operations.transpose') }}">Transpose Matrix</a>
+    <a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
+    <a href="{{ url_for('operations.QR') }}">QR Factorization</a>
+    <a href="{{ url_for('operations.orthogonalprojection') }}">Orthogonal Projections</a>
+    <a href="{{ url_for('operations.gramschmidt') }}">Gram-Schmidt</a>
+  </div>
 </nav>
 <section class="content">
   <header>

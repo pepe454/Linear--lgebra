@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
-    <h1>Hi, {{ user.username }}!</h1>
+    <h1>Welcome to Danny's Matrix Calculator!</h1>
+    <p>This website is designed to help you through your studies of Linear Algebra, but not replace
+        the practice you get from homework (although it certainly could). The main source of information
+        for the algorithms and explanations is Dr. David Lay's Linear Algebra and its Applications. 
+        There is a quickstart here, on the home page, or you may delve into individual topics through the 
+        navigation bar. Enjoy!  
+    </p>
+    <p>Cheers, Danny</p>
+
 {% endblock %}
