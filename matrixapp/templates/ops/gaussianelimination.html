@@ -2,6 +2,13 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}
+{% block header %}
+    <h1>Gaussian Elimination: Find the solution for a given b</h1>
+{% endblock %}
 
+{% block content %}
+    <p>The purpose of Gaussian Elimination is to create a reduced-row echelon form (notated RREF in most calculators). 
+        In this application, as you will see, it is not only used to find the solution x for a given b, but also to find
+        the inverse and the determinant. 
+    </p>
 {% endblock %}

@@ -29,7 +29,7 @@ def create_app(test_config=None):
     @app.route('/index')
     def index():
         user = {'username':'Danny'}
-        return render_template('index.html', title="Danny's Matrix Calculator", user=user)
+        return render_template('index.html', title="Danny's Linear Algebra Calculator", user=user)
 
     from . import ops
     app.register_blueprint(ops.bp)

@@ -2,24 +2,49 @@
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <div class="trigger">
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('operations.inverse') }}">Inverse Matrix</a>
-    <a href="{{ url_for('operations.determinant') }}">Determinant</a>
-    <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>
-    <a href="{{ url_for('operations.transpose') }}">Transpose Matrix</a>
-    <a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
-    <a href="{{ url_for('operations.QR') }}">QR Factorization</a>
-    <a href="{{ url_for('operations.orthogonalprojection') }}">Orthogonal Projections</a>
-    <a href="{{ url_for('operations.gramschmidt') }}">Gram-Schmidt</a>
+  <div class="navbar">
+    <a class = homeanchor href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>    
+    <div class="dropdown">
+        <button class="dropbtn"><a href="{{ url_for('operations.basicoperations') }}">Basic Operations</a>
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('operations.basicoperations') }}">Transpose</a>
+          <a href="{{ url_for('operations.basicoperations') }}">Multiply</a>
+          <a href="{{ url_for('operations.basicoperations') }}">Add, Subtract</a>
+          <a href="{{ url_for('operations.basicoperations') }}">Add, Subtract</a>
+        </div>
+    </div>
+    <a href="{{ url_for('operations.inverse') }}">Inverse Matrix </a>
+    <div class="dropdown">
+        <button class="dropbtn"><a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('operations.eigen') }}#basic">Basic</a>
+            <a href="{{ url_for('operations.eigen') }}#diagonal">Diagonal Matrix</a>
+            <a href="{{ url_for('operations.eigen') }}s#eigenspace">Eigenspace</a>
+        </div>
+      </div> 
+    <div class="dropdown">
+        <button class="dropbtn"><a href="{{ url_for('operations.orthogonalprojection') }}">Orthogonal Projections</a>
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('operations.orthogonalprojection') }}">Simple Orthogonal Projection</a>
+          <a href="{{ url_for('operations.orthogonalprojection') }}">QR Factorization</a>
+          <a href="{{ url_for('operations.orthogonalprojection') }}">Gram-Schmidt Process</a>
+        </div>
+    </div>
   </div>
 </nav>
 <section class="content">
   <header>
     {% block header %}{% endblock %}
   </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
   {% block content %}{% endblock %}
+  <p>Create a matrix</p>
+
+  {% block content2 %}{% endblock %}
 </section>

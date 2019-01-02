@@ -37,6 +37,12 @@ class Matrix:
         self.eigenvectors = []
         self.diagonal_matrix = []
         self.P = []
+
+        #orthogonal projections
+        self.yhat = []
+        self.Q = []
+        self.R = []
+        self.orthonormal = []
         
             
     #matrix operations    

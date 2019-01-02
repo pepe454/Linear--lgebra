@@ -2,14 +2,21 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block header %}
+    <h1>Welcome to Danny's Linear Algebra Calculator!</h1>
+{% endblock %}
+
 {% block content %}
-    <h1>Welcome to Danny's Matrix Calculator!</h1>
     <p>This website is designed to help you through your studies of Linear Algebra, but not replace
         the practice you get from homework (although it certainly could). The main source of information
-        for the algorithms and explanations is Dr. David Lay's Linear Algebra and its Applications. 
-        There is a quickstart here, on the home page, or you may delve into individual topics through the 
+        for the algorithms and explanations is Dr. David Lay's "Linear Algebra and its Applications." 
+        There is a <a href="#quickstart">quickstart</a> here, on the home page, or you may delve into individual topics through the 
         navigation bar. Enjoy!  
     </p>
     <p>Cheers, Danny</p>
+    <img src = "static/textbook.jpg" class="center" style="height:30%;width:30%;margin-left:auto;margin-right:auto;display:block">
+
+    <a name="quickstart"></a>
+    
 
 {% endblock %}
