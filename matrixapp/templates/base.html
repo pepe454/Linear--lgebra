@@ -11,9 +11,9 @@
         </button>
         <div class="dropdown-content">
           <a href="{{ url_for('operations.basicoperations') }}">Transpose</a>
-          <a href="{{ url_for('operations.basicoperations') }}">Multiply</a>
+          <a href="{{ url_for('operations.basicoperations') }}">Multiply, Power</a>
           <a href="{{ url_for('operations.basicoperations') }}">Add, Subtract</a>
-          <a href="{{ url_for('operations.basicoperations') }}">Add, Subtract</a>
+          <a href="{{ url_for('operations.basicoperations') }}">Scale</a>
         </div>
     </div>
     <a href="{{ url_for('operations.inverse') }}">Inverse Matrix </a>
@@ -44,7 +44,7 @@
     {% block header %}{% endblock %}
   </header>
   {% block content %}{% endblock %}
-  <p>Create a matrix</p>
+  <h3>Create a matrix</h3>
 
   {% block content2 %}{% endblock %}
 </section>
