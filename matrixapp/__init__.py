@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template
+from flask import redirect, flash, url_for, Flask, render_template, request
+from matrixcalculator import Matrix
 #app = Flask(__name__)
 #from matrixapp import routes
 
@@ -23,13 +24,25 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
+        
     # a simple page that says hello
     @app.route('/')
-    @app.route('/index')
+    @app.route('/index', methods=('GET','POST'))
     def index():
-        user = {'username':'Danny'}
-        return render_template('index.html', title="Danny's Linear Algebra Calculator", user=user)
+        if request.method == 'POST':
+            matrix_rows = request.form['rows']
+            matrix_cols = request.form['cols']
+            #option = request.form['option']
+
+            if not matrix_rows: 
+                error = 'Rows are required'
+            elif not matrix_cols:
+                error = 'Cols are required'
+            else:
+                m = Matrix([[0 for i in matrix_cols] for j in matrix_rows])
+                print(m)
+            flash(error)
+        return render_template('index.html', title="Danny's Linear Algebra Calculator")
 
     from . import ops
     app.register_blueprint(ops.bp)
