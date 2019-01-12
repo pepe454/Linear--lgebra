@@ -264,22 +264,22 @@ class Matrix:
 
 
 #n is bigger than m
-m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
+#m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
 #m.get_inverse()
 #print(m.solve())
-print(m)
-m.transpose()
-m.transpose()
-print("----------------\n")
+#print(m)
+#m.transpose()
+#m.transpose()
+#print("----------------\n")
 
 #m is bigger than m
-m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
+#m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
 #m.get_inverse()
 #print(m.solve())
-print(m)
-m.transpose()
-m.transpose()
-print("----------------\n")
+#print(m)
+#m.transpose()
+#m.transpose()
+#print("----------------\n")
 
 #m = n
 m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])

@@ -1,55 +1,30 @@
 import os
 from flask import redirect, flash, url_for, Flask, render_template, request
 from matrixcalculator import Matrix
-#app = Flask(__name__)
-#from matrixapp import routes
+from configObj import Config
+from matrixapp.forms import CreateMatrixForm, SubmitMatrixForm
 
-def create_app(test_config=None):
+def create_app():
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'matrixapp.sqlite'),
-    )
+    app.config.from_object(Config)
     
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
-
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-        
-    # a simple page that says hello
-    @app.route('/')
+    @app.route('/', methods=('GET','POST'))
     @app.route('/index', methods=('GET','POST'))
     def index():
-        if request.method == 'POST':
-            matrix_rows = request.form['rows']
-            matrix_cols = request.form['cols']
-            #option = request.form['option']
-
-            if not matrix_rows: 
-                error = 'Rows are required'
-            elif not matrix_cols:
-                error = 'Cols are required'
+        submitted = request.args.get('submitted')
+        form = CreateMatrixForm()
+        if submitted: 
+            form = SubmitMatrixForm(int(request.args.get('rows')), int(request.args.get('cols')))
+        if form.validate_on_submit():
+            if not submitted:
+                #flash('Creating a matrix ' + str(m))
+                return redirect(url_for('index', submitted=True, rows=form.rows.data, cols=form.cols.data))
             else:
-                m = Matrix([[0 for i in matrix_cols] for j in matrix_rows])
-                print(m)
-            flash(error)
-        return render_template('index.html', title="Danny's Linear Algebra Calculator")
-
+                pass
+                #return redirect
+        #m = Matrix([[0 for i in range(form.cols.data)] for j in range(form.rows.data)])
+        return render_template('index.html', title="Danny's Linear Algebra Calculator", form=form)
     from . import ops
     app.register_blueprint(ops.bp)
-
-    #@app.route('/inverse')
-    #def inverse():
-    #    user = {'username':'Danny'}
-    #    return render_template('/ops/inverse.html', title="Danny's Matrix Calculator", user=user)
-    
     return app

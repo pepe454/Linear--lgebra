@@ -3,39 +3,39 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
   <div class="navbar">
-    <a class = homeanchor href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>    
+    <a class=homeanchor href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>
     <div class="dropdown">
-        <button class="dropbtn"><a href="{{ url_for('operations.basicoperations') }}">Basic Operations</a>
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-          <a href="{{ url_for('operations.basicoperations') }}">Transpose</a>
-          <a href="{{ url_for('operations.basicoperations') }}">Multiply, Power</a>
-          <a href="{{ url_for('operations.basicoperations') }}">Add, Subtract</a>
-          <a href="{{ url_for('operations.basicoperations') }}">Scale</a>
-        </div>
+      <button class="dropbtn"><a href="{{ url_for('operations.basicoperations') }}">Basic Operations</a>
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{{ url_for('operations.basicoperations') }}">Transpose</a>
+        <a href="{{ url_for('operations.basicoperations') }}">Multiply, Power</a>
+        <a href="{{ url_for('operations.basicoperations') }}">Add, Subtract</a>
+        <a href="{{ url_for('operations.basicoperations') }}">Scale</a>
+      </div>
     </div>
     <a href="{{ url_for('operations.inverse') }}">Inverse Matrix </a>
     <div class="dropdown">
-        <button class="dropbtn"><a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="{{ url_for('operations.eigen') }}#basic">Basic</a>
-            <a href="{{ url_for('operations.eigen') }}#diagonal">Diagonal Matrix</a>
-            <a href="{{ url_for('operations.eigen') }}s#eigenspace">Eigenspace</a>
-        </div>
-      </div> 
+      <button class="dropbtn"><a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{{ url_for('operations.eigen') }}#basic">Basic</a>
+        <a href="{{ url_for('operations.eigen') }}#diagonal">Diagonal Matrix</a>
+        <a href="{{ url_for('operations.eigen') }}s#eigenspace">Eigenspace</a>
+      </div>
+    </div>
     <div class="dropdown">
-        <button class="dropbtn"><a href="{{ url_for('operations.orthogonalprojection') }}">Orthogonal Projections</a>
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-          <a href="{{ url_for('operations.orthogonalprojection') }}">Simple Orthogonal Projection</a>
-          <a href="{{ url_for('operations.orthogonalprojection') }}">QR Factorization</a>
-          <a href="{{ url_for('operations.orthogonalprojection') }}">Gram-Schmidt Process</a>
-        </div>
+      <button class="dropbtn"><a href="{{ url_for('operations.orthogonalprojection') }}">Orthogonal Projections</a>
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{{ url_for('operations.orthogonalprojection') }}">Simple Orthogonal Projection</a>
+        <a href="{{ url_for('operations.orthogonalprojection') }}">QR Factorization</a>
+        <a href="{{ url_for('operations.orthogonalprojection') }}">Gram-Schmidt Process</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -43,11 +43,44 @@
   <header>
     {% block header %}{% endblock %}
   </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
   {% block content %}{% endblock %}
-  <h3>Create a matrix</h3>
 
+  <h1>Create a Matrix</h1>
+  <form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.rows.label }}<br>
+      {{ form.rows(size=32) }}
+      {% for error in form.rows.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.cols.label }}<br>
+      {{ form.cols(size=32) }}
+      {% for error in form.cols.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+
+  <!--<h3>Create a matrix</h3>
+    <form method="post">
+      <label for="rows">Rows</label>
+      <input name="rows" id="rows" required>
+      <label for="cols">Columns</label>
+      <input name="cols" id="cols" required>
+      <input type="submit" value="Set Matrix">
+    </form>-->
   {% block content2 %}{% endblock %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
 </section>

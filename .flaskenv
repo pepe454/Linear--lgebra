@@ -1,2 +1,3 @@
 FLASK_APP=matrixapp
 FLASK_ENV=development
+SECRET_KEY=1340137940987asfadfpoiuqeerpoiu1u344139874eoeeqproheqerpoh0987098ADFASDFAEQWKDAdfafdqq
