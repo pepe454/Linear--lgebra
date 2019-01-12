@@ -7,11 +7,10 @@ class CreateMatrixForm(FlaskForm):
     cols = IntegerField('Columns', validators=[DataRequired(),NumberRange(min=0)])
     submit = SubmitField('Create empty Matrix')
 
-class MatrixList(FlaskForm):
-    def __init__(self, cols):
-        self.L = FieldList(DecimalField('Entries', validators=[DataRequired(),NumberRange(min=0)]), min_entries=cols, max_entries=cols)
+class MatrixListForm(FlaskForm):
+    def __init__(self, cols=1):
+        self.L = FieldList(DecimalField('Entries', validators=[DataRequired(),NumberRange(min=0)]), min_entries=cols)#, max_entries=cols)
 
 
-class SubmitMatrixForm(FlaskForm):
-    def __init__(self, rows, cols):
-        self.L = FieldList(FormField(MatrixList(cols)), min_entries=rows, max_entries=rows)
+#class SubmitMatrixForm(FlaskForm):
+#    A = FieldList(FormField(MatrixListForm())) #min_entries=rows, max_entries=rows)

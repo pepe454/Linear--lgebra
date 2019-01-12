@@ -44,7 +44,8 @@
     {% block header %}{% endblock %}
   </header>
   {% block content %}{% endblock %}
-
+  
+  {% if not submitted %}
   <h1>Create a Matrix</h1>
   <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
@@ -64,15 +65,22 @@
     </p>
     <p>{{ form.submit() }}</p>
   </form>
+  {% endif %}
 
-  <!--<h3>Create a matrix</h3>
-    <form method="post">
-      <label for="rows">Rows</label>
-      <input name="rows" id="rows" required>
-      <label for="cols">Columns</label>
-      <input name="cols" id="cols" required>
-      <input type="submit" value="Set Matrix">
-    </form>-->
+  {% if submitted %}
+  <h1>Enter values in a Matrix</h1>
+  <form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.L }}<br>
+      {{ form.L(size=32) }}
+      {% for error in form.L.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+  </form>
+  {% endif %}
+
   {% block content2 %}{% endblock %}
   {% with messages = get_flashed_messages() %}
   {% if messages %}

@@ -282,12 +282,12 @@ class Matrix:
 #print("----------------\n")
 
 #m = n
-m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
+#m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
 #m.get_inverse()
 #print(m.solve())
-print(m)
-m.transpose()
-m.transpose()
+#print(m)
+#m.transpose()
+#m.transpose()
 
 
 
