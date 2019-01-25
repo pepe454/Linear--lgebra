@@ -45,48 +45,26 @@
   </header>
   {% block content %}{% endblock %}
   
-  {% if not submitted %}
   <h1>Create a Matrix</h1>
+  <h3>Enter entries of the matrix separated by space</h3>
   <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
-      {{ form.rows.label }}<br>
-      {{ form.rows(size=32) }}
-      {% for error in form.rows.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.cols.label }}<br>
-      {{ form.cols(size=32) }}
-      {% for error in form.cols.errors %}
+      {{ form.entry.label }}<br>
+      {{ form.entry }}
+      {% for error in form.entry.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </p>
     <p>{{ form.submit() }}</p>
   </form>
-  {% endif %}
-
-  {% if submitted %}
-  <h1>Enter values in a Matrix</h1>
-  <form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-      {{ form.L }}<br>
-      {{ form.L(size=32) }}
-      {% for error in form.L.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-  </form>
-  {% endif %}
 
   {% block content2 %}{% endblock %}
   {% with messages = get_flashed_messages() %}
   {% if messages %}
   <ul>
     {% for message in messages %}
-    <li>{{ message }}</li>
+    {{ message }}
     {% endfor %}
   </ul>
   {% endif %}
