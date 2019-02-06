@@ -15,9 +15,15 @@ def create_app():
     def index():
         form = EnterMatrixForm()
         if form.validate_on_submit():
-            d = form.entry
-            print(d)
-            flash(d)
+            entry = form.entry.data.split()
+            cols = form.cols.data
+            rows = form.rows.data
+            if len(entry) != cols*rows:
+                error = "Every place in the matrix must be filled"
+                flash(error)
+            else:
+                mat = Matrix([entry[i:i + cols] for i in range(0, len(entry), cols)])
+                flash(str(mat))
                         
         #submitted = request.args.get('submitted')
         #form = CreateMatrixForm()
@@ -30,7 +36,7 @@ def create_app():
                 #m = Matrix([[0 for i in range(int(request.args.get('cols')))] for j in range(int(request.args.get('rows')))])
                 #flash('Creating a matrix ' + str(m))
         return render_template('index.html', title="Danny's Linear Algebra Calculator", form=form)
-    
+   
     from . import ops
     app.register_blueprint(ops.bp)
     return app

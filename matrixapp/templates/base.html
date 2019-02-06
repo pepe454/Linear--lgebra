@@ -3,8 +3,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
   <div class="navbar">
-    <a class=homeanchor href="{{ url_for('index') }}">Home</a>
+    <a class="homeanchor" href="{{ url_for('index') }}">Home</a>
     <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>
+    <a href="{{ url_for('operations.inverse') }}">Inverse Matrix </a>
     <div class="dropdown">
       <button class="dropbtn"><a href="{{ url_for('operations.basicoperations') }}">Basic Operations</a>
         <i class="fa fa-caret-down"></i>
@@ -16,7 +17,6 @@
         <a href="{{ url_for('operations.basicoperations') }}">Scale</a>
       </div>
     </div>
-    <a href="{{ url_for('operations.inverse') }}">Inverse Matrix </a>
     <div class="dropdown">
       <button class="dropbtn"><a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
         <i class="fa fa-caret-down"></i>
@@ -50,6 +50,20 @@
   <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
+      {{ form.rows.label }}<br>
+      {{ form.rows }}
+      {% for error in form.rows.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.cols.label }}<br>
+      {{ form.cols }}
+      {% for error in form.cols.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
       {{ form.entry.label }}<br>
       {{ form.entry }}
       {% for error in form.entry.errors %}
@@ -62,11 +76,9 @@
   {% block content2 %}{% endblock %}
   {% with messages = get_flashed_messages() %}
   {% if messages %}
-  <ul>
     {% for message in messages %}
-    {{ message }}
+    <span style="color: red;">[{{ message }}]</span>
     {% endfor %}
-  </ul>
   {% endif %}
   {% endwith %}
 </section>
