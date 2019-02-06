@@ -4,3 +4,4 @@ config.py
 .flaskenv
 matrixtkinter.py
 configObj.py
+.vscode/
