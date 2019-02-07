@@ -4,9 +4,12 @@
 <nav>
   <div class="navbar">
     <a class="homeanchor" href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('operations.basicoperations') }}">Basic Operations</a>
     <a href="{{ url_for('operations.gaussianelimination') }}">Gaussian Elimination</a>
     <a href="{{ url_for('operations.inverse') }}">Inverse Matrix </a>
-    <div class="dropdown">
+    <a href="{{ url_for('operations.eigen') }}">Eigenvalues and Eigenvectors</a>
+    <a href="{{ url_for('operations.orthogonalprojection') }}">Orthogonal Projections</a>
+    <!--<div class="dropdown">
       <button class="dropbtn"><a href="{{ url_for('operations.basicoperations') }}">Basic Operations</a>
         <i class="fa fa-caret-down"></i>
       </button>
@@ -36,7 +39,7 @@
         <a href="{{ url_for('operations.orthogonalprojection') }}">QR Factorization</a>
         <a href="{{ url_for('operations.orthogonalprojection') }}">Gram-Schmidt Process</a>
       </div>
-    </div>
+    </div> -->
   </div>
 </nav>
 <section class="content">
@@ -46,38 +49,24 @@
   {% block content %}{% endblock %}
   
   <h1>Create a Matrix</h1>
-  <h3>Enter entries of the matrix separated by space</h3>
+  <p>Enter entries of the matrix by separating each column by space and each row with a newline</p>
   <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
-      {{ form.rows.label }}<br>
-      {{ form.rows }}
-      {% for error in form.rows.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.cols.label }}<br>
-      {{ form.cols }}
-      {% for error in form.cols.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.entry.label }}<br>
-      {{ form.entry }}
+      <br>
+      {{ form.entry(rows='10',cols='25') }}
       {% for error in form.entry.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </p>
     <p>{{ form.submit() }}</p>
   </form>
-
+  
   {% block content2 %}{% endblock %}
   {% with messages = get_flashed_messages() %}
   {% if messages %}
     {% for message in messages %}
-    <span style="color: red;">[{{ message }}]</span>
+    <span style="color: blue; white-space: pre-wrap;">{{ message }}</span>
     {% endfor %}
   {% endif %}
   {% endwith %}

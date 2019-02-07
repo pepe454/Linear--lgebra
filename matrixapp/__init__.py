@@ -15,26 +15,14 @@ def create_app():
     def index():
         form = EnterMatrixForm()
         if form.validate_on_submit():
-            entry = form.entry.data.split()
-            cols = form.cols.data
-            rows = form.rows.data
-            if len(entry) != cols*rows:
-                error = "Every place in the matrix must be filled"
-                flash(error)
-            else:
-                mat = Matrix([entry[i:i + cols] for i in range(0, len(entry), cols)])
-                flash(str(mat))
-                        
-        #submitted = request.args.get('submitted')
-        #form = CreateMatrixForm()
-        #if submitted:
-            #form = NewMatrixForm()#int(request.args.get('cols')),int(request.args.get('rows')))
-        #if form.validate_on_submit():
-            #if not submitted:
-                #return redirect(url_for('index', submitted=True, rows=form.rows.data, cols=form.cols.data))
-            #else:
-                #m = Matrix([[0 for i in range(int(request.args.get('cols')))] for j in range(int(request.args.get('rows')))])
-                #flash('Creating a matrix ' + str(m))
+            entry = form.entry.data.splitlines()
+            entry = [i.split() for i in entry]
+            entry = [[int(x) for x in y] for y in entry]
+            #for j in range(len(entry)):
+            #    for k in range(len(entry[0])):  
+            #        entry[j][k] = int(entry[j][k])
+            mat = Matrix(entry)
+            flash(str(mat))
         return render_template('index.html', title="Danny's Linear Algebra Calculator", form=form)
    
     from . import ops

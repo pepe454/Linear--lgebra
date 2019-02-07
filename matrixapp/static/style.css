@@ -21,57 +21,43 @@ hr {
 nav { 
     top: 0; 
     font-family: Arial, Helvetica, sans-serif; 
-    font-size: 12pt; 
     background: black; 
     font: light-grey; 
     display: flex; 
     padding: 1.25rem; 
     width: 100%; 
     position:fixed;
-}
-
-navbar {
-    height: 22.6px; 
+    align-items: center;
 }
 
 nav a { 
     display: block;
     text-align: center; 
+    font-size: 12pt; 
     float: left; 
-    color: #ffffff; 
-    text-decoration-line: none; 
+    color: white; 
+    text-decoration: none;
     margin-right: 1rem;
     height: 22.6px;
     line-height: 22.6px;
 }  
 
-/* Change background on mouse-over
-.navbar a:hover {background: #ddd; color: black;} */
-
 nav a.homeanchor {
     margin-left: 2rem;
 }
+
+/*
 .dropdown { 
     float: left; 
     overflow: hidden; 
     background: black; 
-    text-align: center;
-    height: 22.6px;
-    line-height: 22.6px;
 }
 
 .dropbtn {
     background: black; 
     border: none;
-    text-align: center;
-    height: 22.6px;
-    line-height: 22.6px;
 } 
-.dropbtn a {
-    font-size: 12pt;
-    height: 22.6px;
-    line-height: 22.6px;
-}
+
 .dropdown:hover .dropdown-content { 
     display: block;
 }
@@ -80,6 +66,8 @@ nav a.homeanchor {
     position: absolute; 
     background: black;
 }
+*/
+
 .dropdown-content a { 
     float: none; 
     color: white; 
@@ -102,12 +90,48 @@ nav a.homeanchor {
     display: flex; 
     align-items: flex-end; 
 }
-.content > header h1 { margin-top: 1rem; font-family: bookman;flex: auto; margin: 1rem 0 0.25rem 0; }
-.flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
-.content:last-child { margin-bottom: 0; }
-.content form { margin: 1em 0; display: flex; flex-direction: column; }
-.content label { font-weight: bold; margin-bottom: 0.5em; }
-.content input, .content textarea { margin-bottom: 1em; }
-.content textarea { min-height: 12em; resize: vertical; }
-input.danger { color: #cc2f2e; }
-input[type=submit] { align-self: start; min-width: 10em; }
+.content > header h1 { 
+    margin-top: 1rem; 
+    font-family: bookman;
+    flex: auto; 
+    margin: 1rem 0 0.25rem 0; 
+}
+
+.flash { 
+    margin: 1em 0; 
+    padding: 1em; 
+    background: #cae6f6; 
+    border: 1px solid #377ba8; 
+}
+
+.content:last-child { 
+    margin-bottom: 0; 
+}
+
+.content form { 
+    margin: 1em 0; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.content label { 
+    font-weight: bold; 
+    margin-bottom: 0.5em; 
+}
+
+.content input, .content textarea { 
+    margin-bottom: 1em; 
+}
+
+.content textarea { 
+    min-height: 12em; 
+    resize: vertical; 
+}
+
+input.danger { 
+    color: #cc2f2e; 
+}
+
+input[type=submit] { 
+    align-self: start; min-width: 10em; 
+}

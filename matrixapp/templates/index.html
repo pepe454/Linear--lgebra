@@ -7,14 +7,22 @@
 {% endblock %}
 
 {% block content %}
-    <p>This website is designed to help you through your studies of Linear Algebra, but not replace
-        the practice you get from homework (although it certainly could). The main source of information
-        for the algorithms and explanations is Dr. David Lay's "Linear Algebra and its Applications." 
+    <p> This website is designed to help you through your studies of Linear Algebra. Although it may be used solely to solve problems,
+        the solutions are also supplemented with detailed explanations and a step-by-step flow. The main source of information
+        for the methods and explanations is Dr. David Lay's "Linear Algebra and its Applications." 
         There is a <a href="#quickstart">quickstart</a> here, on the home page, or you may delve into individual topics through the 
-        navigation bar. Enjoy!  
+        navigation bar:
+        <ol>
+            <li>Basic Operations: Add matrices, Subtract matrices, Multiply matrices, Raise matrices to power
+            <li>Gaussian Elimination</li>
+            <li>Inverse Matrix: Inverse, Determinants
+            <li>Eigenvalues and Eigenvectors: Find eigenvectors and eigenvalues, Diagonalize a matrix
+            <li>Orthogonal Projections: Project onto a plane, QR Factorization, Gram Schmidt        
+        </ol>
     </p>
-    <p>Cheers, Danny</p>
+    <p>Cheers! </p>
     <img src = "static/textbook.jpg" class="center" style="height:15%;width:15%;margin-left:auto;margin-right:auto;display:block">
+
     <a name="quickstart"></a>
     
 {% endblock %}
