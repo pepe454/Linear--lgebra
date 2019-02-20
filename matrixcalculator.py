@@ -6,7 +6,6 @@ Created on Sat Sep 29 14:04:25 2018
 """
 #matrix class
 from fractions import Fraction
-from copy import deepcopy
 
 class Matrix:
     def __init__(self, A = None, b = None):
@@ -73,20 +72,17 @@ class Matrix:
         if self.det:
             self.det *= 1/c
         
-    #perform any operation between two vectors/lists such as summing all of their respective elements
-    def dot_operation(self,x,y,f=lambda c,k: c):
-        L = deepcopy(x)
+    def dot_operation(self,x,y,f=lambda y,k: y):
         for j in range(len(x)):
-            L[j] = f(x[j],y[j])
-        return L
+            y[j] = f(x[j],y[j])
          
     def addtwo(self, first, second, c=1):
         if 0 <= first < len(self.A) and 0 <= second < len(self.A):
             temp = [c*i for i in self.A[first]]
-            self.A[second] = self.dot_operation(temp,self.A[second],lambda a,b: a + b)
+            self.dot_operation(temp,self.A[second],lambda a,b: a + b)
             if self.square:
                 temp = [c*i for i in self.inv[first]]
-                self.A[second] = self.dot_operation(temp,self.inv[second],lambda a,b: a + b)
+                self.dot_operation(temp,self.inv[second],lambda a,b: a + b)
             if self.b:
                 temp = c * self.b[first]
                 self.b[second] += temp
@@ -228,25 +224,24 @@ class Matrix:
         
     
     #need to check this method
-    #actually changes the original matrix
     def __add__(self,other):
-        if len(self) != len(other) or len(self.A[0]) != len(other.A[0]):
-            #print("Undefined")
-            raise Exception("Matrices have different number of columns or rows")
-        for k in range(len(self)):
-            self.A[k] = self.dot_operation(self.A[k],other.A[k],lambda x,y: x+y)
-
+        if len(self) == len(other) and len(self.A[0]) == len(other.A[0]):
+            for k in range(len(other)):
+                g = self.dot_operation(self.A[k],other.A[k],lambda x,y: x+y)
+                print(g)
+                self.A[k] = g
+        else:
+            print("undefined")
+    
+    """
     def __mul__(self,other):
-        if len(self.A[0]) != len(other):
-            raise Exception("Number of columns in matrix 1 do not match number of rows in matrix 2")
-        L = []
-        for i in self:
-            T = []
-            for j in other:
-                temp = self.dot_operation(i, j, lambda x,y: x*y)
-                s = sum(temp)
-                T.append(s)
-            L.append(T)
+        if len(self[0]) == len(other):
+            
+            
+        else:
+            print("undefined")
+    """        
+    
         
     def __iter__(self):
         for x in self.A:
@@ -269,7 +264,8 @@ class Matrix:
 
 
 #n is bigger than m
-#m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
+m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
+m.gaussianelimination()
 #m.get_inverse()
 #print(m.solve())
 #print(m)
@@ -278,7 +274,8 @@ class Matrix:
 #print("----------------\n")
 
 #m is bigger than m
-#m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
+m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
+m.gaussianelimination()
 #m.get_inverse()
 #print(m.solve())
 #print(m)
@@ -287,9 +284,13 @@ class Matrix:
 #print("----------------\n")
 
 #m = n
-#m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
+m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
+m.gaussianelimination()
 #m.get_inverse()
 #print(m.solve())
 #print(m)
 #m.transpose()
 #m.transpose()
+
+
+

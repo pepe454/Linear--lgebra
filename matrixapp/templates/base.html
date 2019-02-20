@@ -59,6 +59,8 @@
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </p>
+    <p> Choose an option: {{ form.options() }}</p>
+    <p> Detailed solution? {{ form.detailed_solution() }}</p>
     <p>{{ form.submit() }}</p>
   </form>
   

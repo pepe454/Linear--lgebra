@@ -2,7 +2,7 @@ import os
 from flask import redirect, flash, url_for, Flask, render_template, request
 from matrixcalculator import Matrix
 from configObj import Config
-from matrixapp.forms import EnterMatrixForm
+from matrixapp.forms import EnterMatrixForm, EnterMatrixForm2
 
 
 def create_app():
@@ -17,12 +17,18 @@ def create_app():
         if form.validate_on_submit():
             entry = form.entry.data.splitlines()
             entry = [i.split() for i in entry]
-            entry = [[int(x) for x in y] for y in entry]
-            #for j in range(len(entry)):
-            #    for k in range(len(entry[0])):  
-            #        entry[j][k] = int(entry[j][k])
-            mat = Matrix(entry)
-            flash(str(mat))
+            try:
+                entry = [[int(x) for x in y] for y in entry]
+                mat = Matrix(entry)
+                #flash(str(mat))
+            except ValueError:
+                flash("Oops! Enter valid matrix data.  Try again...")
+            if form.options.data == 'g':
+                k = mat.gaussianelimination()
+                if form.detailed_solution.data:
+                    flash(k[0])
+                else:
+                    flash(k[1])
         return render_template('index.html', title="Danny's Linear Algebra Calculator", form=form)
    
     from . import ops
