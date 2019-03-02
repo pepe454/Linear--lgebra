@@ -91,10 +91,12 @@ class Matrix:
         if self.RREF:
             return  
         step = 0
+        detailed = ""
         while step < len(self.A[0]) and step < len(self):
-            print("Step: " + str(step))
-            print("Matrix: ")
-            print(self)
+            detailed += "Step: " + str(step) + "\n" + "Matrix: \n" + str(self)
+            #print("Step: " + str(step))
+            #print("Matrix: ")
+            #print(self)
             if self.A[step][step] == 0:
                 for y in range(step + 1, len(self)):
                     if self.A[y][step] != 0:
@@ -123,7 +125,8 @@ class Matrix:
                 newb.append(Fraction(k).limit_denominator())
             self.b = newb
             
-        print("Finished \n" + str(self))
+        #detailed += "Finished!"
+        return detailed, str(self)
 
     #return the solution of the system if b is provided
     def solve(self):
@@ -223,7 +226,7 @@ class Matrix:
             print(self)               
         
     
-    #need to check this method
+    """
     def __add__(self,other):
         if len(self) == len(other) and len(self.A[0]) == len(other.A[0]):
             for k in range(len(other)):
@@ -233,7 +236,6 @@ class Matrix:
         else:
             print("undefined")
     
-    """
     def __mul__(self,other):
         if len(self[0]) == len(other):
             
@@ -264,8 +266,8 @@ class Matrix:
 
 
 #n is bigger than m
-m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
-m.gaussianelimination()
+#m = Matrix([[1,2,3,12,13],[4,3,2,14,15]],[10,12])
+#print(m.gaussianelimination()[0])
 #m.get_inverse()
 #print(m.solve())
 #print(m)
@@ -274,8 +276,8 @@ m.gaussianelimination()
 #print("----------------\n")
 
 #m is bigger than m
-m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
-m.gaussianelimination()
+#m = Matrix([[1,2,3],[4,3,2],[6,7,5],[3,8,7],[12,3,14],[13,40,32]],[1,2,3,4,5,6])
+#print(m.gaussianelimination()[0])
 #m.get_inverse()
 #print(m.solve())
 #print(m)
@@ -284,8 +286,8 @@ m.gaussianelimination()
 #print("----------------\n")
 
 #m = n
-m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
-m.gaussianelimination()
+#m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
+#print(m.gaussianelimination()[0])
 #m.get_inverse()
 #print(m.solve())
 #print(m)

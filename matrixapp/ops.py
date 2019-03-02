@@ -2,14 +2,14 @@ import functools
 from flask import (
     Blueprint, redirect, render_template, request, session, url_for, flash, Flask
 )
-from matrixapp.forms import EnterMatrixForm
+from matrixapp.forms import EnterMatrixFormBase
 from matrixcalculator import Matrix
 
 bp = Blueprint('operations', __name__, url_prefix='/operations')
 
 @bp.route('/inverse')
 def inverse():
-    form = EnterMatrixForm()
+    form = EnterMatrixFormBase()
     if form.validate_on_submit():
         entry = form.entry.data.splitlines()
         entry = [i.split() for i in entry]
@@ -23,7 +23,7 @@ def inverse():
     
 @bp.route('/eigen')
 def eigen():
-    form = EnterMatrixForm()
+    form = EnterMatrixFormBase()
     if form.validate_on_submit():
         entry = form.entry.data.splitlines()
         entry = [i.split() for i in entry]
@@ -37,7 +37,7 @@ def eigen():
     
 @bp.route('/gaussianelimination')
 def gaussianelimination():
-    form = EnterMatrixForm()
+    form = EnterMatrixFormBase()
     if form.validate_on_submit():
         entry = form.entry.data.splitlines()
         entry = [i.split() for i in entry]
@@ -51,7 +51,7 @@ def gaussianelimination():
     
 @bp.route('/orthogonalprojection')
 def orthogonalprojection():
-    form = EnterMatrixForm()
+    form = EnterMatrixFormBase()
     if form.validate_on_submit():
         entry = form.entry.data.splitlines()
         entry = [i.split() for i in entry]
@@ -65,7 +65,7 @@ def orthogonalprojection():
 
 @bp.route('/basicoperations')
 def basicoperations():
-    form = EnterMatrixForm()
+    form = EnterMatrixFormBase()
     if form.validate_on_submit():
         entry = form.entry.data.splitlines()
         entry = [i.split() for i in entry]
