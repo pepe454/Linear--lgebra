@@ -7,8 +7,15 @@ Created on Sat Sep 29 14:04:25 2018
 #matrix class
 from fractions import Fraction
 
+def flt2frac(flt):
+    try: 
+        answer = str(Fraction(flt).limit_denominator())
+        return answer
+    except Exception as e:
+        return None
+
 class Matrix:
-    def __init__(self, A = None, b = None):
+    def __init__(self, A, b = None):
         #basic qualities of the matrix
         #let A be a list of lists. This is the matrix
         #let b be the solution if it is given
@@ -26,7 +33,6 @@ class Matrix:
         #set the inverse to be the identity matrix at first
         if len(self.A) == len(self.A[0]):
             self.inv = [[1 if j == i else 0 for j in range(len(self))] for i in range(len(self))]
-            #the determinant
             self.det = 1
             self.square = True
             
@@ -86,7 +92,7 @@ class Matrix:
 
         for step in range(smaller):
             if verbose:
-                detailed += f"Step: {str(step)}\n{str(self)}\n"
+                detailed += f"Step: {step}\n{str(self)}\n"
             #need a non-zero value in [step][step]
             if self.A[step][step] == 0:
                 for y in range(step + 1, len(self)):
@@ -110,7 +116,7 @@ class Matrix:
         if verbose:  
             detailed += f"Step: {str(smaller)}\n{str(self)}\n"
             detailed += "Finished!"
-        return detailed
+        return detailed  
 
     #return the solution of the system if b is provided
     def solution(self):
@@ -125,22 +131,21 @@ class Matrix:
             
             #now return the solution if the system is consistent
             if self.square:
-                #return "[ " + ", ".join([str(Fraction(x).limit_denominator()) for x in b]) + ' ]'
-                return "\n".join([f"x{i} = {str(Fraction(x).limit_denominator())}" for i, x in enumerate(self.b)])
+                return "\n".join([f"x{i} = {flt2frac(x)}" for i, x in enumerate(self.b)])
             else: 
                 #if M < N, there are free variables. 
                 #One free variable for each extra col 
                 first = len(self.A[0]) - len(self.A)            
                 sol = "The solution in terms of free variables\n"
                 for i,l in enumerate(self):
-                    tmp = f"x{i+1} = {str(Fraction(self.b[i]).limit_denominator())} + "
-                    tmp += ' + '.join([f"{str(Fraction(-w).limit_denominator())}x{z+first}" for z,w in enumerate(l[first:])])
+                    tmp = f"x{i+1} = {flt2frac(self.b[i])} + "
+                    tmp += ' + '.join([f"{flt2frac(-w)}x{z+first}" for z,w in enumerate(l[first:])])
                     sol += f"{tmp}\n"
                 return sol
         return "No solution was provided"
     
     #returns the determinant
-    def get_det(self):
+    def determinant(self):
         if self.square: 
             if not self.RREF:
                 self.gaussianelimination()
@@ -152,7 +157,7 @@ class Matrix:
         return 
                  
     #retruns the determinant
-    def get_inverse(self):
+    def inverse(self):
         if self.square:
             k = self.get_det()
             if k != 0 and k is not None:
@@ -167,7 +172,7 @@ class Matrix:
                 return self.inv
             else: 
                 #determinant is zero - the inverse DNE
-                return None
+                return 
         else:
             #matrix isn't square
             return None
@@ -208,7 +213,7 @@ class Matrix:
         else:
             print("undefined")
     """       
-        
+
     def __iter__(self):
         for x in self.A:
             yield x
@@ -216,22 +221,26 @@ class Matrix:
     def __str__(self): 
         string_rep = ""
         if self.b is None:
-            string_rep = [f"| {' '.join([str(Fraction(x).limit_denominator()) for x in y])} |" for y in self]
+            string_rep = [f"| {' '.join([flt2frac(x) for x in y])} |" for y in self]
             return "\n".join(string_rep)   
         else:
             for i in range(len(self)):
-                string_rep += f"| {' '.join([str(Fraction(x).limit_denominator()) for x in self.A[i]])} |"
-                string_rep += f" {str(Fraction(self.b[i]).limit_denominator())} |\n"
+                string_rep += f"| {' '.join([flt2frac(x) for x in self.A[i]])} |"
+                string_rep += f" {flt2frac(self.b[i])} |\n"
             return string_rep      
     
     def __len__(self):
         return len(self.A)
 
 
-#n is bigger than m
+#n = m
+m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
+print(m.solution())
+
+#n > m
 m = Matrix([[1,2,3,12,13],[4,3,2,14,15]], [6,7])
 print(m.solution())
 
-#m = n
-m = Matrix([[3,4,5,6],[7,4,3,2],[12,13,2,6],[5,9,8,7]],[12,13,14,15])
+#n < m
+m = Matrix([[1,2,3,12,13],[4,3,2,14,15]], [6,7])
 print(m.solution())
